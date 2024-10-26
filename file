@@ -1,0 +1,10 @@
+docker run -d -p 8085:80 -v ~/Desktop/volume:/usr/local/apache2/htdocs --name volume-cont httpd
+docker exec -it volume-cont /bin/bash
+echo "Hello" >> file
+exit
+docker run -d -p 8085:80 -v ~/Desktop/volume:/usr/local/apache2/htdocs --name volume-cont2 httpd
+
+
+
+FROM httpd
+ENTRYPOINT ["echo", "Hello"]

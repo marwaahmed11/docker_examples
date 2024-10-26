@@ -1,0 +1,22 @@
+docker rmi -f $(docker images -aq) => to delete all images
+
+docker volume ls
+docker volume create <volume-name>
+
+** Anonymous volume:
+docker run -d --name apache-container -p 8098:80 -v /usr/local/apache2/htdocs httpd:2.4 
+                   
+** Named volume:
+docker run -d --name apache-container1 -p 8098:80 -v myvolume:/usr/local/apache2/htdocs httpd:2.4   => edit from container and from volume then remove container and attach it to another container 
+docker run -d --name=nginxtest  -p 8098:80 --mount source=nginx-vol,destination=/usr/share/nginx/html nginx:latest
+
+** Bind Mount:
+docker run -d --name apache-container2 -p 8098:80 -v ~/Desktop/myvolume:/usr/local/apache2/htdocs httpd:2.4 => edit from container and from volume then remove container and attach it to another cont
+docker run -d --name apache-container2 -p 8098:80 --mount type=bind,source="$(pwd)"/target,target=/usr/local/apache2/htdocs httpd:2.4
+
+
+
+docker run -d --name=test2  -p 8098:80 --mount source=data,destination=/usr/share/nginx/html nginx:latest
+
+
+docker run -d -it --name devtest --mount type=bind,source="$(pwd)"/target,target=/app nginx:latest
