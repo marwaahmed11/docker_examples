@@ -2,3 +2,12 @@ docker network create python-redis-net
 docker build -t python-img .
 docker run -d --name redis-server --net python-redis-net -p 6379:6379 redis:alpine
 docker run -d --name python-app -e REDIS_HOST=redis-server -e REDIS_PORT=6379 -e REDIS_DB=0 -e ENVIRONMENT=production -e PORT=8000 -p 8090:8000 --net python-redis-net  python-img
+
+ENV REDIS_HOST=redis-server
+ENV REDIS_PORT=6379 
+ENV REDIS_DB=0
+ENV ENVIRONMENT=production
+ENV PORT=8000
+
+docker run -d --name python-app -p 8090:8000 --net python-redis-net  python-img
+
